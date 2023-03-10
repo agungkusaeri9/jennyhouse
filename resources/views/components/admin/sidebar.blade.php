@@ -20,8 +20,8 @@
                         <li><a href="{{ route('admin.post-categories.index') }}">Kategori</a></li>
                     @endcan
                     @can('Kategori View')
-                    <li><a href="{{ route('admin.post-tags.index') }}">Tag</a></li>
-                @endcan
+                        <li><a href="{{ route('admin.post-tags.index') }}">Tag</a></li>
+                    @endcan
                     @can('Artikel View')
                         <li><a href="{{ route('admin.posts.index') }}">Artikel</a></li>
                     @endcan
@@ -34,11 +34,11 @@
                 </li>
             @endcan
             @can('Pesan Masuk View')
-            <li>
-                <a class="nav-link" href="{{ route('admin.inboxes.index') }}"><i class="fas fa-folder"></i>
-                    <span>Pesan Masuk</span></a>
-            </li>
-        @endcan
+                <li>
+                    <a class="nav-link" href="{{ route('admin.inboxes.index') }}"><i class="fas fa-folder"></i>
+                        <span>Pesan Masuk</span></a>
+                </li>
+            @endcan
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-newspaper"></i>
                     <span>Produk</span></a>
@@ -51,6 +51,12 @@
                     @endcan
                 </ul>
             </li>
+            @can('User View')
+                <li>
+                    <a class="nav-link" href="{{ route('admin.transactions.index') }}"><i class="fas fa-folder"></i>
+                        <span>Transaksi</span></a>
+                </li>
+            @endcan
             @can('User View')
             <li>
                 <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i>

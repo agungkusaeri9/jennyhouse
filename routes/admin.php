@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocmedController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -83,6 +84,11 @@ Route::resource('product-categories',ProductCategoryController::class)->except('
 Route::get('inboxes/data',[InboxController::class,'data'])->name('inboxes.data');
 Route::resource('inboxes',InboxController::class)->only(['index','destroy']);
 
-// socmed
+// products
 Route::get('products/data',[ProductController::class,'data'])->name('products.data');
 Route::resource('products',ProductController::class);
+
+
+// transactions
+Route::get('transactions/data',[TransactionController::class,'data'])->name('transactions.data');
+Route::resource('transactions',TransactionController::class)->except(['create','edit','update']);
