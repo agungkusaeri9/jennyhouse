@@ -46,11 +46,8 @@
                     @can('Kategori Produk View')
                         <li><a href="{{ route('admin.product-categories.index') }}">Kategori</a></li>
                     @endcan
-                    @can('Kategori View')
-                    <li><a href="{{ route('admin.post-tags.index') }}">Tag</a></li>
-                @endcan
-                    @can('Artikel View')
-                        <li><a href="{{ route('admin.posts.index') }}">Artikel</a></li>
+                    @can('Produk View')
+                        <li><a href="{{ route('admin.products.index') }}">Produk</a></li>
                     @endcan
                 </ul>
             </li>

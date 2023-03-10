@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PostTagController;
 use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
@@ -81,3 +82,7 @@ Route::resource('product-categories',ProductCategoryController::class)->except('
 // inbox
 Route::get('inboxes/data',[InboxController::class,'data'])->name('inboxes.data');
 Route::resource('inboxes',InboxController::class)->only(['index','destroy']);
+
+// socmed
+Route::get('products/data',[ProductController::class,'data'])->name('products.data');
+Route::resource('products',ProductController::class);
