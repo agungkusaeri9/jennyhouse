@@ -18,7 +18,9 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/nouislider.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/main.css') }}">
-    @stack('styles')
+    {{-- <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.all.min.css') }}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/toastr/toastr.min.css') }}">
     @vite('resources/js/app.js')
 </head>
 
@@ -46,7 +48,19 @@
     <script src="{{ asset('assets/frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/gmaps.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
-    @stack('scripts')
+
+    {{-- <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script> --}}
+    <script src="{{ asset('assets/toastr/toastr.min.js') }}"></script>
+    @if (session('success'))
+        <script>
+            toastr.success('{{ session('success') }}')
+        </script>
+    @elseif(session('error'))
+        <script>
+             toastr.error('{{ session('error') }}');
+        </script>
+    @endif
+
 </body>
 
 </html>

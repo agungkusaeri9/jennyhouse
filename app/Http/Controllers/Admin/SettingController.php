@@ -32,7 +32,7 @@ class SettingController extends Controller
 
         if(request()->file('favicon'))
         {
-            Storage::disk('public')->delete($setting->favicon);
+            $setting->favicon ? Storage::disk('public')->delete($setting->favicon) : '';
             $data['favicon'] = request()->file('favicon')->store('settings','public');
         }else{
             $data['favicon'] = $setting->favicon;
@@ -40,7 +40,7 @@ class SettingController extends Controller
 
         if(request()->file('image'))
         {
-            Storage::disk('public')->delete($setting->image);
+            $setting->image ? Storage::disk('public')->delete($setting->image) : '';
             $data['image'] = request()->file('image')->store('settings','public');
         }else{
             $data['image'] = $setting->image;

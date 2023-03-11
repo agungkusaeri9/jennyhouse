@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\ProductCategory;
 use App\Models\Setting;
 use Illuminate\View\Component;
 
@@ -25,8 +26,10 @@ class Navbar extends Component
     public function render()
     {
         $setting = Setting::first();
+        $product_categories = ProductCategory::orderBy('name','ASC')->get();
         return view('components.frontend.navbar',[
-            'setting' => $setting
+            'setting' => $setting,
+            'product_categories' => $product_categories
         ]);
     }
 }

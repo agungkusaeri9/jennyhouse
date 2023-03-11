@@ -1,59 +1,76 @@
-@extends('auth.app')
+@extends('frontend.layouts.app')
 @section('content')
-<section class="section">
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-          <div class="login-brand">
-            <img src="../assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
-          </div>
-
-          <div class="card card-primary">
-            <div class="card-header"><h4>Login</h4></div>
-
-            <div class="card-body">
-              <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
-                @csrf
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" tabindex="1" required autofocus>
-                  @error('email')
-                  <div class="invalid-feedback">
-                   {{ $message }}
-                  </div>
-                  @enderror
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Login/Register</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{{ route('home') }}">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{{ route('login') }}">Login/Register</a>
+                    </nav>
                 </div>
-
-                <div class="form-group">
-                  <div class="d-block">
-                      <label for="password" class="control-label">Password</label>
-                  </div>
-                  <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" tabindex="2" required>
-                  @error('password')
-                  <div class="invalid-feedback">
-                   {{ $message }}
-                  </div>
-                  @enderror
-                </div>
-
-                <div class="form-group">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                    <label class="custom-control-label" for="remember-me">Remember Me</label>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                    Login
-                  </button>
-                </div>
-              </form>
-
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Login Box Area =================-->
+    <section class="login_box_area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="login_box_img">
+                        <img class="img-fluid" src="{{ asset('assets/frontend/img/login.jpg') }}" alt="">
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="login_form_inner">
+                        <h3>Log in to enter</h3>
+                        <form class="row login_form" action="{{ route('login') }}" method="post" id="contactForm"
+                            novalidate="novalidate">
+                            @csrf
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                    id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Email'">
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="password" class="form-control  @error('password') is-invalid @enderror"
+                                    id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Password'">
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <button type="submit" value="submit" class="primary-btn">Login</button>
+                            </div>
+                          <div class="col-md-12 my-0 py-0">
+                            <div class="text-center">
+                                <div class="small text-muted">Or</div>
+                            </div>
+                          </div>
+                            <div class="col-md-12  form-group">
+                                <a class="btn btn-primary btn-block">
+                                    <span class="google-icon text-white"><i class="fa fa-google"></i></span>
+                                    <span class="google-text text-white">Sign in with Google</span>
+                                </a>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
