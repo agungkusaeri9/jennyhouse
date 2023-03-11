@@ -8,7 +8,13 @@
                     <h1>Halaman Produk</h1>
                     <nav class="d-flex align-items-center">
                         <a href="{{ route('home') }}">Home<span class="lnr lnr-arrow-right"></span></a>
+
+                        @isset($category)
                         <a href="{{ route('products.index') }}">Shop<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{{ route('products.category',$category->slug) }}">{{ $category->name }}</a>
+                        @else
+                        <a href="{{ route('products.index') }}">Shop</a>
+                        @endisset
                     </nav>
                 </div>
             </div>

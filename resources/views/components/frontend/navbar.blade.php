@@ -22,41 +22,45 @@
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">All Product</a></li>
                                 @forelse ($product_categories as $category)
-                                <li class="nav-item"><a class="nav-link" href="category.html">{{ $category->name }}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('products.category',$category->slug) }}">{{ $category->name }}</a></li>
                                 @empty
                                 @endforelse
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                             aria-expanded="false">Blog</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                             aria-expanded="false">Pages</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                                <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-                            </ul>
+                            <a href="{{ route('blogs.index') }}" class="nav-link">Blog</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
+                        @auth
+                        <li class="nav-item"><a class="nav-link" href="{{ route('transactions.index') }}">Pesanan</a></li>
+                        @endauth
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item">
-                            <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-                        </li>
+                        {{-- <li class="nav-item">
+                            <form action="" method="get">
+                                <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                            </form>
+                        </li> --}}
                         <li class="nav-item"><a href="{{ route('cart.index') }}" class="cart"><span class="ti-bag"></span></a></li>
-                        <li class="nav-item"><a href="#" class="cart"><span class="ti-user"></span></a></li>
+                     @auth
+                     <li class="nav-item"><a href="javascript:void(0)" onclick="document.getElementById('formLogout').submit()" class="cart text-dark"><span class="text-dark"></span>Logout</a></li>
+                     <form action="{{ route('logout') }}" id="formLogout" method="post">
+                    @csrf</form>
+                     @endauth
+                        {{-- <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                             aria-expanded="false"><span class="ti-user"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Profile</a></li>
+                            </ul>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-    <div class="search_input" id="search_input_box">
+    {{-- <div class="search_input" id="search_input_box">
         <div class="container">
             <form class="d-flex justify-content-between">
                 <input type="text" class="form-control" id="search_input" placeholder="Search Here">
@@ -64,5 +68,5 @@
                 <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
             </form>
         </div>
-    </div>
+    </div> --}}
 </header>

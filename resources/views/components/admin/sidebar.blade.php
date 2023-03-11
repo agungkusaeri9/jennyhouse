@@ -92,12 +92,6 @@
                         <span>Pengaturan Web</span></a>
                 </li>
             @endcan
-            @can('Sitemap View')
-                <li>
-                    <a class="nav-link" href=""><i class="fas fa-sitemap"></i>
-                        <span>Perbaharui Sitemap</span></a>
-                </li>
-            @endcan
         </ul>
 
     </aside>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
@@ -25,10 +27,16 @@ Auth::routes(['register' => false]);
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/contact', [ContactController::class,'index'])->name('contact');
 Route::post('/contact', [ContactController::class,'store'])->name('contact.store');
+Route::get('/about', [AboutController::class,'index'])->name('about');
 
 // all product
 Route::get('/products', [ProductController::class,'index'])->name('products.index');
+Route::get('/products/category/{slug}', [ProductController::class,'category'])->name('products.category');
 Route::get('/products/{slug}', [ProductController::class,'show'])->name('products.show');
+
+// blog
+Route::get('/blog', [BlogController::class,'index'])->name('blogs.index');
+Route::get('/blog/{slug}', [BlogController::class,'show'])->name('blogs.show');
 
 Route::middleware('auth')->group(function(){
     // cart
@@ -39,6 +47,7 @@ Route::middleware('auth')->group(function(){
     // checkout
     Route::post('/checkout', CheckoutController::class)->name('checkout');
 
-     // checkout
+    // transactions
+    Route::get('/transactions', [TransactionController::class,'index'])->name('transactions.index');
      Route::get('/transactions/success/{uuid}', [TransactionController::class,'success'])->name('transactions.success');
 });
