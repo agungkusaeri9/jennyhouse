@@ -61,7 +61,7 @@
                             </div>
                           </div>
                             <div class="col-md-12  form-group">
-                                <a class="btn btn-primary btn-block">
+                                <a class="btn btn-primary btn-block" href="{{ route('google.index') }}">
                                     <span class="google-icon text-white"><i class="fa fa-google"></i></span>
                                     <span class="google-text text-white">Sign in with Google</span>
                                 </a>

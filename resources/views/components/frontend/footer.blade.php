@@ -1,7 +1,7 @@
 <footer class="footer-area section_gap">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8  col-md-6 col-sm-6">
+            <div class="col-lg-6">
                 <div class="single-footer-widget">
                     <h6>About Us</h6>
                     <p>
@@ -22,9 +22,11 @@
                 <div class="single-footer-widget">
                     <h6>Follow Us</h6>
                     <div class="footer-social d-flex align-items-center">
-                        <a href="https://www.facebook.com/Jennyhouse.id/"><i class="fa fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/jennyhouse.id/"><i class="fa fa-instagram"></i></a>
-                        <a href="https://www.youtube.com/channel/UC7sPi5u4zPsJvDBLi2GyXkQ?view_as=subscriber"><i class="fa fa-youtube"></i></a>
+                        @forelse ($socmeds as $socmed)
+                        <a href="{{ $socmed->link }}"><i class="fa fa-{{ \Str::lower($socmed->name) }}"></i></a>
+                        @empty
+
+                        @endforelse
                     </div>
                 </div>
             </div>

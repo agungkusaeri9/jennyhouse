@@ -16,9 +16,9 @@
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         <li class="nav-item @if(Route::currentRouteName() === 'home') active @endif"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                        <li class="nav-item submenu dropdown">
+                        <li class="nav-item submenu dropdown @if(Route::currentRouteName() === 'products.index' || Route::currentRouteName() === 'products.show' || Route::currentRouteName() === 'products.category') active @endif">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                             aria-expanded="false">Shop</a>
+                             aria-expanded="false">Products</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">All Product</a></li>
                                 @forelse ($product_categories as $category)
@@ -27,13 +27,15 @@
                                 @endforelse
                             </ul>
                         </li>
-                        <li class="nav-item submenu dropdown">
+                        <li class="nav-item submenu  @if(Route::currentRouteName() === 'blogs.index' || Route::currentRouteName() === 'blogs.show') active @endif">
                             <a href="{{ route('blogs.index') }}" class="nav-link">Blog</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
+                        <li class="nav-item  @if(Route::currentRouteName() === 'contact') active @endif">
+                            <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                        </li>
+                        <li class="nav-item @if(Route::currentRouteName() === 'about') active @endif"><a class="nav-link" href="{{ route('about') }}">About</a></li>
                         @auth
-                        <li class="nav-item"><a class="nav-link" href="{{ route('transactions.index') }}">Pesanan</a></li>
+                        <li class="nav-item  @if(Route::currentRouteName() === 'transactions.index') active @endif"><a class="nav-link" href="{{ route('transactions.index') }}">Transactions</a></li>
                         @endauth
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -42,7 +44,7 @@
                                 <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                             </form>
                         </li> --}}
-                        <li class="nav-item"><a href="{{ route('cart.index') }}" class="cart"><span class="ti-bag"></span></a></li>
+                        <li class="nav-item @if(Route::currentRouteName() === 'cart.index') active @endif"><a href="{{ route('cart.index') }}" class="cart"><span class="ti-bag"></span></a></li>
                      @auth
                      <li class="nav-item"><a href="javascript:void(0)" onclick="document.getElementById('formLogout').submit()" class="cart text-dark"><span class="text-dark"></span>Logout</a></li>
                      <form action="{{ route('logout') }}" id="formLogout" method="post">

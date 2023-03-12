@@ -5,6 +5,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
@@ -37,6 +38,12 @@ Route::get('/products/{slug}', [ProductController::class,'show'])->name('product
 // blog
 Route::get('/blog', [BlogController::class,'index'])->name('blogs.index');
 Route::get('/blog/{slug}', [BlogController::class,'show'])->name('blogs.show');
+
+// login google
+Route::prefix('auth')->middleware('guest')->group(function(){
+    Route::get('google',[GoogleController::class,'index'])->name('google.index');
+    Route::get('google/callback',[GoogleController::class,'callback'])->name('google.callback');
+});
 
 Route::middleware('auth')->group(function(){
     // cart

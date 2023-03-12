@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\Socmed;
 use Illuminate\View\Component;
 
 class Footer extends Component
@@ -23,6 +24,8 @@ class Footer extends Component
      */
     public function render()
     {
-        return view('components.frontend.footer');
+        return view('components.frontend.footer',[
+            'socmeds' => Socmed::orderBy('name','ASC')->get()
+        ]);
     }
 }
