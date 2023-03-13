@@ -5,10 +5,11 @@
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>Konfirmasi</h1>
+                    <h1>{{ $transaction->code }}</h1>
                     <nav class="d-flex align-items-center">
                         <a href="{{ route('home') }}l">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="javascript:void(0)">Konfirmasi</a>
+                        <a href="{{ route('transactions.index') }}l">Transaksi<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="javascript:void(0)">Detail</a>
                     </nav>
                 </div>
             </div>
@@ -28,7 +29,7 @@
                     <div class="details_item">
                         <h4>Info Order</h4>
                         <ul class="list">
-                            <li><a href="javascript:void(0)"><span>Nomor Order</span> : 60235</a></li>
+                            <li><a href="javascript:void(0)"><span>Nomor Order</span> : {{ $transaction->code }}</a></li>
                             <li><a href="javascript:void(0)"><span>Nama</span> : {{ $transaction->name }}</a></li>
                             <li><a href="javascript:void(0)"><span>Alamat</span> : {{ $transaction->address }} </a></li>
                             <li><a href="javascript:void(0)"><span>Nomor Telepon</span> : {{ $transaction->phone_number }}</a></li>

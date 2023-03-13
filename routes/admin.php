@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InboxController;
@@ -92,3 +93,7 @@ Route::resource('products',ProductController::class);
 // transactions
 Route::get('transactions/data',[TransactionController::class,'data'])->name('transactions.data');
 Route::resource('transactions',TransactionController::class)->except(['create','edit','update']);
+
+// brand
+Route::get('brands/data',[BrandController::class,'data'])->name('brands.data');
+Route::resource('brands',BrandController::class)->except('create','show','edit','update');

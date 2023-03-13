@@ -114,6 +114,24 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="map_html">Peta HTML</label>
+                                    <textarea name="map_html" id="map_html" cols="30" rows="4" class="form-control @error('map_html') is-invalid @enderror" style="min-height: 120px">{{ $setting->map_html }}</textarea>
+                                    @error('map_html')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Deskripsi</label>
+                                    <textarea name="description" id="description" cols="30" rows="4" class="form-control @error('description') is-invalid @enderror" style="min-height: 120px">{{ $setting->description }}</textarea>
+                                    @error('description')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="meta_keyword">Meta Kata Kunci</label>
                                     <input type="text" class="form-control @error('meta_keyword') is-invalid @enderror"
                                         value="{{ $setting->meta_keyword }}" name="meta_keyword">

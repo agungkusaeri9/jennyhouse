@@ -5,11 +5,11 @@
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
-                <h1>Detail Produk</h1>
+                <h1>{{ $product->name }}</h1>
                 <nav class="d-flex align-items-center">
                     <a href="{{ route('home') }}">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="{{ route('products.index') }}">Shop<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="{{ route('products.show',$product->slug) }}">Detail Produk</a>
+                    <a href="{{ route('products.index') }}">Products<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="{{ route('products.show',$product->slug) }}">{{ $product->name }}</a>
                 </nav>
             </div>
         </div>

@@ -68,6 +68,11 @@
                         <span>Sosial Media</span></a>
                 </li>
             @endcan
+            @can('Brand View')
+            <li><a class="nav-link" href="{{ route('admin.brands.index') }}"><i class="fas fa-sitemap"></i>
+                    <span>Brand</span></a>
+            </li>
+        @endcan
             @can('Filemanager View')
                 <li>
                     <a class="nav-link" target="_blank" href="{{ url('admin/filemanager') }}"><i class="fas fa-folder"></i>

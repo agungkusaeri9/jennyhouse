@@ -72,7 +72,7 @@ class ProductController extends Controller
             'image' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
-        $data = request()->only(['name', 'product_category_id', 'qty', 'description', 'price', 'weigh']);
+        $data = request()->only(['name', 'product_category_id', 'qty', 'description', 'price', 'weight']);
         $data['slug'] = \Str::slug($data['name']);
         $data['image'] = request()->file('image')->store('product', 'public');
 
@@ -111,7 +111,7 @@ class ProductController extends Controller
             'weight' => ['required'],
             'image' => ['image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
-        $data = request()->only(['name', 'product_category_id', 'qty', 'description', 'price', 'weigh']);
+        $data = request()->only(['name', 'product_category_id', 'qty', 'description', 'price', 'weight']);
         $product = Product::find($id);
         $data['slug'] = \Str::slug($data['name']);
 

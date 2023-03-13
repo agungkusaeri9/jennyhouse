@@ -2,10 +2,10 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Kategori Produk</h1>
+            <h1>Brand</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item">Kategori Produk</div>
+                <div class="breadcrumb-item">Brand</div>
             </div>
         </div>
         <div class="section-body">
@@ -22,7 +22,6 @@
                                             <th>No.</th>
                                             <th>Gambar</th>
                                             <th>Nama</th>
-                                            <th>Slug</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -98,7 +97,7 @@
             let otable = $('#dTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('admin.product-categories.data') }}',
+                ajax: '{{ route('admin.brands.data') }}',
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -112,10 +111,6 @@
                     {
                         data: 'name',
                         name: 'name'
-                    },
-                    {
-                        data: 'slug',
-                        name: 'slug'
                     },
                     {
                         data: 'action',
@@ -133,7 +128,7 @@
                 e.preventDefault();
                 let form = new FormData(this);
                 $.ajax({
-                    url: '{{ route('admin.product-categories.store') }}',
+                    url: '{{ route('admin.brands.store') }}',
                     type: 'POST',
                     dataType: 'JSON',
                     contentType:false,
@@ -181,7 +176,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: '{{ url("admin/product-categories/") }}' + '/' + id,
+                            url: '{{ url("admin/brands/") }}' + '/' + id,
                             type: 'DELETE',
                             dataType: 'JSON',
                             success: function(response) {

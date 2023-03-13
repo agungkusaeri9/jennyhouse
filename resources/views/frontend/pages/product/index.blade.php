@@ -10,10 +10,10 @@
                         <a href="{{ route('home') }}">Home<span class="lnr lnr-arrow-right"></span></a>
 
                         @isset($category)
-                        <a href="{{ route('products.index') }}">Shop<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{{ route('products.index') }}">Products<span class="lnr lnr-arrow-right"></span></a>
                         <a href="{{ route('products.category',$category->slug) }}">{{ $category->name }}</a>
                         @else
-                        <a href="{{ route('products.index') }}">Shop</a>
+                        <a href="{{ route('products.index') }}">Products</a>
                         @endisset
                     </nav>
                 </div>

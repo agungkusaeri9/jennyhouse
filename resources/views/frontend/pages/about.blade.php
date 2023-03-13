@@ -19,7 +19,7 @@
 	<section class="sample-text-area">
 		<div class="container">
 			<h3 class="text-heading">Tentang Kami</h3>
-			{!! $setting->descrition !!}
+			{!! $setting->description !!}
 		</div>
 	</section>
 @endsection
