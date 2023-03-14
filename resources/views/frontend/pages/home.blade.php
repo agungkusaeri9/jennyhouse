@@ -13,10 +13,10 @@
                                     <div class="banner-content">
                                         <h1>{{ $banner->name }}</h1>
                                         <p>{{ $banner->meta_description }}</p>
-                                        <div class="add-bag d-flex align-items-center">
+                                        {{-- <div class="add-bag d-flex align-items-center">
                                             <a class="add-btn" href="cart.html"><span class="lnr lnr-cross"></span></a>
                                             <span class="add-text text-uppercase">Add to Bag</span>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-7">
@@ -99,7 +99,7 @@
                     <div class="row">
                         @foreach ($product_categories as $category)
                             <div class="col-lg-4 col-md-4">
-                                <a href="{{ route('products.category',$category->slug) }}">
+                                <a href="{{ route('products.category', $category->slug) }}">
                                     <div class="single-deal">
                                         <div class="overlay"></div>
                                         <img class="img-fluid w-100" src="{{ $category->image() }}" alt="">
@@ -140,10 +140,10 @@
                                         <h6>Rp. {{ number_format($product->price) }}/pcs</h6>
                                     </div>
                                     <div class="prd-bottom">
-                                        <a href="" class="social-info">
+                                        {{-- <a href="" class="social-info">
                                             <span class="ti-bag"></span>
                                             <p class="hover-text">Keranjang</p>
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -171,14 +171,12 @@
                 </div>
             </div>
             <div class="row">
-               @forelse ($brands as $brand)
-               <a class="col single-img" href="javascript:void(0)">
-                <img class="img-fluid d-block mx-auto" src="{{ $brand->image() }} "
-                    alt="">
-            </a>
-               @empty
-
-               @endforelse
+                @forelse ($brands as $brand)
+                    <a class="col single-img" href="javascript:void(0)">
+                        <img class="img-fluid d-block mx-auto" src="{{ $brand->image() }} " alt="">
+                    </a>
+                @empty
+                @endforelse
             </div>
         </div>
     </section>
@@ -192,7 +190,56 @@
         $(function() {
             $('body').on('click', '.btnCart', function() {
                 $('body #formCart').submit();
-            })
+            });
+
+            $(".active-banner-slider").owlCarousel({
+                items: 1,
+                autoplay: false,
+                autoplayTimeout: 5000,
+                loop: true,
+                nav: true,
+                navText: ["<img src='{{ asset('assets/frontend/img/banner/prev.png') }}'>", "<img src='{{ asset('assets/frontend/img/banner/next.png') }}'>"],
+                dots: false
+            });
+
+            /*=================================
+            Javascript for product area carousel
+            ==================================*/
+            $(".active-product-area").owlCarousel({
+                items: 1,
+                autoplay: false,
+                autoplayTimeout: 5000,
+                loop: true,
+                nav: true,
+                navText: ["<img src='{{ asset('assets/frontend/img/product/prev.png') }}'>", "<img src='{{ asset('assets/frontend/img/product/next.png') }}'>"],
+                dots: false
+            });
+
+            /*=================================
+            Javascript for single product area carousel
+            ==================================*/
+            $(".s_Product_carousel").owlCarousel({
+                items: 1,
+                autoplay: false,
+                autoplayTimeout: 5000,
+                loop: true,
+                nav: false,
+                dots: true
+            });
+
+            /*=================================
+            Javascript for exclusive area carousel
+            ==================================*/
+            $(".active-exclusive-product-slider").owlCarousel({
+                items: 1,
+                autoplay: false,
+                autoplayTimeout: 5000,
+                loop: true,
+                nav: true,
+                navText: ["<img src='{{ asset('assets/frontend/img/product/prev.png') }}'>", "<img src='{{ asset('assets/frontend/img/product/next.png') }}'>"],
+                dots: false
+            });
+
         })
     </script>
 @endpush

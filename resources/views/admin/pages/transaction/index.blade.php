@@ -51,8 +51,10 @@
                         @csrf
                         <input type="number" id="id" name="id" hidden>
                         <div class="form-group">
-                            <label for="name">Nama</label>
-                            <input type="text" class="form-control" name="name" id="name">
+                            <label for="transaction_status">Status</label>
+                            <select name="transaction_status" id="transaction_status" class="form-control">
+
+                            </select>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -65,6 +67,7 @@
         </div>
     </div>
 
+    <!-- Modal -->
     <div class="modal fade" id="modalShow" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -74,18 +77,34 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
+                    <div class="info">
 
+                    </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Produk</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                    <th>Total Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody class="data">
+
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-
-    </div>
-    </div>
     </div>
 @endsection
 <x-Admin.Datatable />
@@ -157,10 +176,6 @@
                     }
                 ]
             });
-            $('.btnAdd').on('click', function() {
-                $('#myModal .modal-title').text('Tambah Data');
-                $('#myModal').modal('show');
-            })
             $('#myModal #myForm').on('submit', function(e) {
                 e.preventDefault();
                 let form = $('#myModal #myForm');
@@ -190,15 +205,99 @@
 
             $('body').on('click', '.btnEdit', function() {
                 let id = $(this).data('id');
-                let name = $(this).data('name');
+                let transaction_status = $(this).data('status');
+                // console.log(`${id} ${status}`);
                 $('#myForm #id').val(id);
-                $('#myForm #name').val(name);
+                $('#myForm #transaction_status').empty();
+                let status = ['PENDING', 'PROCESS', 'SUCCESS', 'FAILED'];
+                status.forEach(st => {
+                    if (st === transaction_status) {
+                        $('#myForm #transaction_status').append(`
+                        <option selected value="${st}">${st}</option>
+                    `);
+                    } else {
+                        $('#myForm #transaction_status').append(`
+                        <option value="${st}">${st}</option>
+                    `);
+                    }
+                });
+
                 $('#myModal .modal-title').text('Edit Data');
                 $('#myModal').modal('show');
             })
 
             $('body').on('click', '.btnShow', function() {
                 let id = $(this).data('id');
+                let transaction = transactionDetail(id);
+                console.log(transaction.details);
+                var xhtml = ``;
+                xhtml += `
+                        <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-inline">
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Kode</span>
+                                    <span>${transaction.code}</span>
+                                </li>
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Nama</span>
+                                    <span>${transaction.name}</span>
+                                </li>
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Email</span>
+                                    <span>${transaction.email}</span>
+                                </li>
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Nomor HP</span>
+                                    <span>${transaction.phone_number}</span>
+                                </li>
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Alamat</span>
+                                    <span>${transaction.address}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-inline">
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Metode Pembayaran</span>
+                                    <span>${transaction.payment_detail}</span>
+                                </li>
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Status</span>
+                                    <span>${transaction.status}</span>
+                                </li>
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Total</span>
+                                    <span>${transaction.transaction_total}</span>
+                                </li>
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">Tanggal</span>
+                                    <span>${transaction.created}</span>
+                                </li>
+                                <li class="list-item d-flex justify-content-between mb-1">
+                                    <span class="font-weight-bold">User</span>
+                                    <span>${transaction.user.name}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>`;
+                    $('#modalShow .modal-body tbody.data').empty();
+                    let no = 1;
+                  transaction.details.forEach(detail => {
+                    $('#modalShow .modal-body tbody.data').append(`
+                        <tr>
+                            <td>${no++}</td>
+                            <td>${detail.product.name}</td>
+                            <td>${detail.product.price}</td>
+                            <td>${detail.qty}</td>
+                            <td>${detail.product.price * detail.qty}</td>
+                        </tr>
+                        `);
+                  });
+
+
+                $('#modalShow .modal-body .info').html(xhtml);
                 $('#modalShow .modal-title').text('Detail Transaksi');
                 $('#modalShow').modal('show');
             })
@@ -235,26 +334,20 @@
                 })
             })
 
-            let transactionDetail = function(transaction_id){
+            let transactionDetail = function(transaction_id) {
                 let data;
                 $.ajax({
-                    url: '{{ url('admin/transactions/') }}' + '/' + id,
+                    url: '{{ url('admin/transactions/') }}' + '/' + transaction_id,
                     type: 'GET',
                     dataType: 'JSON',
-                    synce:false,
-                    data: {
-                        id: transaction_id
-                    },
+                    async: false,
                     success: function(response) {
-                       data = response;
+                        data = response;
                     }
                 })
 
                 return data;
             }
-
-            let transaction = transactionDetail(1);
-            console.log(transaction);
 
             $('#myModal').on('hidden.bs.modal', function() {
                 let form = $('#myModal #myForm');

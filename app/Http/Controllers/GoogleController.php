@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Spatie\Permission\Models\Role;
 
 class GoogleController extends Controller
 {
@@ -22,26 +23,27 @@ class GoogleController extends Controller
 
             $finduser = User::where('google_id', $user->id)->first();
 
-            if ( $finduser ) {
+            if ($finduser) {
 
                 Auth::login($finduser);
 
                 return redirect()->intended('/');
-
             } else {
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'username' => \Str::snake($user->name),
-                    'google_id'=> $user->id,
-                    'password' => bcrypt(\Str::random(20))// you can change auto generate password here and send it via email but you need to add checking that the user need to change the password for security reasons
+                    'google_id' => $user->id,
+                    'password' => bcrypt(\Str::random(20)) // you can change auto generate password here and send it via email but you need to add checking that the user need to change the password for security reasons
                 ]);
 
                 Auth::login($newUser);
 
+                $roleUser = Role::where('name', 'User')->first();
+                $roleUser ? '' : Role::create(['name' => 'User']);
+                $newUser->assignRole('User');
                 return redirect()->intended('/');
             }
-
         } catch (Exception $e) {
             dd($e->getMessage());
         }

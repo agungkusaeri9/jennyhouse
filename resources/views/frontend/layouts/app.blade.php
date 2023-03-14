@@ -21,6 +21,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.all.min.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('assets/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/toastr/toastr.min.css') }}">
+    @stack('styles')
     @vite('resources/js/app.js')
 </head>
 
@@ -51,6 +52,7 @@
 
     {{-- <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script> --}}
     <script src="{{ asset('assets/toastr/toastr.min.js') }}"></script>
+    @stack('scripts')
     @if (session('success'))
         <script>
             toastr.success('{{ session('success') }}')

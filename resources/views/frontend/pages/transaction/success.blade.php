@@ -21,7 +21,10 @@
     <section class="order_details section_gap">
         <div class="container">
             <h3 class="title_confirmation">Terima kasih. Pesanan Anda telah diterima.
-                <p class="small text-dark mt-2">Silahkan untuk melakukan pembayaran dengan nominal Rp. {{ number_format($transaction->transaction_total) }} ke {{ $transaction->payment->name . ' : ' . $transaction->payment->number . ' a.n ' . $transaction->payment->desc}}</p>
+                <p class="small text-dark mt-2">Silahkan untuk melakukan pembayaran dengan nominal Rp.
+                    {{ number_format($transaction->transaction_total) }} ke
+                    {{ $transaction->payment->name . ' : ' . $transaction->payment->number . ' a.n ' . $transaction->payment->desc }}
+                </p>
             </h3>
 
             <div class="row order_d_inner">
@@ -32,18 +35,20 @@
                             <li><a href="javascript:void(0)"><span>Nomor Order</span> : {{ $transaction->code }}</a></li>
                             <li><a href="javascript:void(0)"><span>Nama</span> : {{ $transaction->name }}</a></li>
                             <li><a href="javascript:void(0)"><span>Alamat</span> : {{ $transaction->address }} </a></li>
-                            <li><a href="javascript:void(0)"><span>Nomor Telepon</span> : {{ $transaction->phone_number }}</a></li>
+                            <li><a href="javascript:void(0)"><span>Nomor Telepon</span> :
+                                    {{ $transaction->phone_number }}</a></li>
                             <li class="">
                                 <a href="javascript:void(0)" class="d-flex justify-content-start">
-                                    <span>Metode Pembayaran </span>  :
-                                <span class="ml-1">
-                                    @if ($transaction->payment_id)
-                                    {{ $transaction->payment->name }}  <br>
-                                    {{ $transaction->payment->number }} <br>
-                                    {{ $transaction->payment->desc }}
-                                @endif
-                                </span>
-                            </a></li>
+                                    <span>Metode Pembayaran </span> :
+                                    <span class="ml-1">
+                                        @if ($transaction->payment_id)
+                                            {{ $transaction->payment->name }} <br>
+                                            {{ $transaction->payment->number }} <br>
+                                            {{ $transaction->payment->desc }}
+                                        @endif
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -51,9 +56,21 @@
                     <div class="details_item">
                         <h4>&nbsp;</h4>
                         <ul class="list">
-                            <li><a href="javascript:void(0)"><span>Total</span> : Rp. {{ number_format($transaction->transaction_total) }}</a></li>
-                            <li><a href="javascript:void(0)"><span>Status</span> : {{ $transaction->transaction_status }}</a></li>
-                            <li><a href="javascript:void(0)"><span>Tanggal</span> : {{ $transaction->created_at->translatedFormat('d-m-Y H:i:s') }}</a></li>
+                            <li><a href="javascript:void(0)"><span>Total</span> : Rp.
+                                    {{ number_format($transaction->transaction_total) }}</a></li>
+                            <li><a href="javascript:void(0)"><span>Status</span> :
+                                    @if ($transaction->transaction_status === 'PENDING')
+                                        <span class="btn btn-sm btn-secondary text-white">PENDING</span>
+                                    @elseif($transaction->transaction_status === 'PROCESS')
+                                        <span class="btn btn-sm btn-warning text-white">PROCESS</span>
+                                    @elseif($transaction->transaction_status === 'SUCCESS')
+                                        <span class="btn btn-sm btn-success text-white">SUCCESS</span>
+                                    @else
+                                        <span class="btn btn-sm btn-danger text-white">FAILED</span>
+                                    @endif
+                                </a></li>
+                            <li><a href="javascript:void(0)"><span>Tanggal</span> :
+                                    {{ $transaction->created_at->translatedFormat('d-m-Y H:i:s') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -85,17 +102,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                           @forelse ($transaction->details as $detail)
-                               <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $detail->product->name }}</td>
-                                <td>Rp. {{ number_format($detail->price) }}</td>
-                                <td>{{ $detail->qty }}</td>
-                                <td>Rp. {{ number_format($detail->price_total) }}</td>
-                               </tr>
-                           @empty
-
-                           @endforelse
+                            @forelse ($transaction->details as $detail)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $detail->product->name }}</td>
+                                    <td>Rp. {{ number_format($detail->price) }}</td>
+                                    <td>{{ $detail->qty }}</td>
+                                    <td>Rp. {{ number_format($detail->price_total) }}</td>
+                                </tr>
+                            @empty
+                            @endforelse
                             <tr>
                                 <td>
                                     <p>Subtotal</p>

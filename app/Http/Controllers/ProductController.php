@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->latest()->paginate(12);
+        $products = Product::with('category')->latest()->get();
         $product_categories = ProductCategory::withCount('products')->orderBy('name','ASC')->get();
 
         return view('frontend.pages.product.index',[
@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $products = Product::whereHas('category', function($q) use ($slug){
             $q->where('slug',$slug);
-        })->with('category')->latest()->paginate(12);
+        })->with('category')->latest()->get();
         $category = ProductCategory::where('slug',$slug)->firstOrFail();
         $product_categories = ProductCategory::withCount('products')->orderBy('name','ASC')->get();
 

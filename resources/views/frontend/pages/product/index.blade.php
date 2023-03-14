@@ -79,10 +79,10 @@
                                             <h6>Rp. {{ number_format($product->price) }}/pcs</h6>
                                         </div>
                                         <div class="prd-bottom">
-                                            <a href="" class="social-info">
+                                            {{-- <a href="" class="social-info">
                                                 <span class="ti-bag"></span>
                                                 <p class="hover-text">Keranjang</p>
-                                            </a>
+                                            </a> --}}
                                         </div>
                                     </div>
                                 </div>

@@ -21,7 +21,7 @@
         <div class="container">
             <div class="cart_inner">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">Produk</th>
@@ -75,26 +75,23 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="4">
+                                    <td class="text-center" colspan="5">
                                         Keranjang Kosong!
                                     </td>
                                 </tr>
                             @endforelse
-                            <tr>
-                                <td>
 
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-dark">
+                                <td colspan="3" class="text-center text-white">
+                                    <h5 class="text-white">Subtotal</h5>
                                 </td>
-                                <td>
-
-                                </td>
-                                <td>
-                                    <h5>Subtotal</h5>
-                                </td>
-                                <td>
-                                    <h5>Rp. {{ number_format($carts->sum('price_total')) }}</h5>
+                                <td colspan="2" class="text-center text-white">
+                                    <h5 class="text-white">Rp. {{ number_format($carts->sum('price_total')) }}</h5>
                                 </td>
                             </tr>
-                        </tbody>
+                        </tfoot>
                     </table>
                 </div>
             </div>

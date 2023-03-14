@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
 class TransactionController extends Controller
@@ -24,16 +25,29 @@ class TransactionController extends Controller
             return DataTables::eloquent($data)
                     ->addIndexColumn()
                     ->addColumn('action',function($model){
-                        $action = "<button class='btn btn-sm btn-warning btnShow mx-1' data-id='$model->id' data-uuid='$model->uuid'><i class='fas fa fa-eye'></i> Detail</button><button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
+                        $action = "<button class='btn btn-sm btn-warning btnShow mx-1' data-id='$model->id' data-uuid='$model->uuid'><i class='fas fa fa-eye'></i> Detail</button><button class='btn btn-sm btn-info btnEdit mx-1' data-id='$model->id' data-status='$model->transaction_status'><i class='fas fa fa-edit'></i> Edit</button><button class='btn btn-sm btn-danger btnDelete mx-1' data-id='$model->id' data-name='$model->name'><i class='fas fa fa-trash'></i> Hapus</button>";
                         return $action;
                     })
                     ->addColumn('created', function($model){
                         return $model->created_at->translatedFormat('d-m-Y H:i:s');
                     })
+                    ->editColumn('transaction_status', function($model){
+                        if ($model->transaction_status === 'PENDING'){
+                            $status = '<span class="btn btn-sm btn-secondary">PENDING</span>';
+                        }elseif($model->transaction_status === 'PROCESS'){
+                            $status = '<span class="btn btn-sm btn-warning text-white">PROCESS</span>';
+                        }elseif($model->transaction_status === 'SUCCESS'){
+                            $status = '<span class="btn btn-sm btn-success">SUCCESS</span>';
+                        }else{
+                            $status = '<span class="btn btn-sm btn-danger">FAILED</span>';
+                        }
+
+                        return $status;
+                    })
                     ->editColumn('transaction_total', function($model){
                         return 'Rp. ' . number_format($model->transaction_total);
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['action','transaction_status'])
                     ->make(true);
         }
     }
@@ -47,21 +61,20 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'name' => ['required',Rule::unique('post_categories')->ignore(request('id'))]
+           'transaction_status' => ['required','in:PENDING,PROCESS,SUCCESS,FAILED']
         ]);
 
         Transaction::updateOrCreate([
             'id'  => request('id')
         ],[
-            'name' => request('name'),
-            'slug' => Str::slug(request('name'))
+            'transaction_status' => request('transaction_status')
         ]);
 
         if(request('id'))
         {
-            $message = 'Kategori berhasil disimpan.';
+            $message = 'Transaksi berhasil disimpan.';
         }else{
-            $message = 'Kategori berhasil ditambahakan.';
+            $message = 'Transaksi berhasil ditambahakan.';
         }
         return response()->json(['status'=>'succcess','message' => $message]);
     }
@@ -69,7 +82,29 @@ class TransactionController extends Controller
     public function show($id)
     {
         if(request()->ajax()){
-            $transaction = Transaction::with('details.product')->where('id',$id)->first();
+            $transaction = Transaction::with('details.product','payment','user')->where('id',$id)->first();
+            if($transaction->payment){
+                $transaction['payment_detail'] = $transaction->payment->name . ' - ' . $transaction->payment->number . ' ( ' . $transaction->payment->desc . ' )';
+            }else{
+                $transaction['payment_detail'] = '-';
+            }
+
+            // status
+            if ($transaction->transaction_status === 'PENDING'){
+                $transaction['status'] = '<span class="btn btn-sm btn-secondary">PENDING</span>';
+            }elseif($transaction->transaction_status === 'PROCESS'){
+                $transaction['status'] = '<span class="btn btn-sm btn-warning text-white">PROCESS</span>';
+            }elseif($transaction->transaction_status === 'SUCCESS'){
+                $transaction['status'] = '<span class="btn btn-sm btn-success">SUCCESS</span>';
+            }else{
+                $transaction['status'] = '<span class="btn btn-sm btn-danger">FAILED</span>';
+            }
+
+            // transaction total
+            $transaction['transaction_total'] = 'Rp. ' . number_format($transaction->transaction_total);
+
+            // tanggal
+            $transaction['created'] = $transaction->created_at->translatedFormat('d-m-Y H:i:s');
             return response()->json($transaction);
         }
     }
@@ -83,6 +118,6 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         Transaction::find($id)->delete();
-        return response()->json(['status'=>'succcess','message' => 'Data kategori berhasil dihapus.']);
+        return response()->json(['status'=>'succcess','message' => 'Data Transaksi berhasil dihapus.']);
     }
 }

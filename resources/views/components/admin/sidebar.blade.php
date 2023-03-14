@@ -27,18 +27,6 @@
                     @endcan
                 </ul>
             </li>
-            @can('Metode Pembayaran View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.payments.index') }}"><i class="fas fa-folder"></i>
-                        <span>Metode Pembayaran</span></a>
-                </li>
-            @endcan
-            @can('Pesan Masuk View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.inboxes.index') }}"><i class="fas fa-folder"></i>
-                        <span>Pesan Masuk</span></a>
-                </li>
-            @endcan
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fw fa-newspaper"></i>
                     <span>Produk</span></a>
@@ -57,6 +45,18 @@
                         <span>Transaksi</span></a>
                 </li>
             @endcan
+            @can('Metode Pembayaran View')
+            <li>
+                <a class="nav-link" href="{{ route('admin.payments.index') }}"><i class="fas fa-folder"></i>
+                    <span>Metode Pembayaran</span></a>
+            </li>
+        @endcan
+        @can('Pesan Masuk View')
+            <li>
+                <a class="nav-link" href="{{ route('admin.inboxes.index') }}"><i class="fas fa-folder"></i>
+                    <span>Pesan Masuk</span></a>
+            </li>
+        @endcan
             @can('User View')
             <li>
                 <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i>
