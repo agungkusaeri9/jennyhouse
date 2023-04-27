@@ -20,7 +20,6 @@
                                             <th>No.</th>
                                             <th>Nama</th>
                                             <th>Email</th>
-                                            <th>Web</th>
                                             <th>Pesan</th>
                                             <th>Tanggal</th>
                                             <th>Aksi</th>
@@ -79,10 +78,6 @@
                     {
                         data: 'email',
                         name: 'email'
-                    },
-                    {
-                        data: 'web',
-                        name: 'web'
                     },
                     {
                         data: 'text',

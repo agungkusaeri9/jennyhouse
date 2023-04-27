@@ -117,7 +117,7 @@ class UserController extends Controller
             'status' => request('status'),
         ]);
         request('id') !== NULL ?  $user->syncRoles(request('role')) :  $user->assignRole(request('role'));
-      
+
         return response()->json(['status' => 'success', 'message' => 'User berhasil disimpan.']);
     }
 
@@ -198,7 +198,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $item = User::findOrFail($id);
-        Storage::disk('public')->delete($item->avatar);
+        $item->avatar ? Storage::disk('public')->delete($item->avatar) : '';
         $item->delete();
         return response()->json(['status' => 'success', 'message' => 'User berhasil dihapus.']);
     }

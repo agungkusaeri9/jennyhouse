@@ -45,23 +45,16 @@ Route::DELETE('roles/remove-permission',[RoleController::class,'removePermission
 Route::post('roles/add-permission',[RoleController::class,'addPermission'])->name('roles.add-permission');
 Route::resource('roles',RoleController::class)->except('create','show','edit','update');
 
-// permissions
-Route::get('permissions/data',[PermissionController::class,'data'])->name('permissions.data');
-Route::post('permissions/get',[PermissionController::class,'get'])->name('permissions.get');
-Route::post('permissions/getByRole',[PermissionController::class,'getByRole'])->name('permissions.getByRole');
-Route::resource('permissions',PermissionController::class)->except('create','show','edit','update');
 
 // posts
 Route::get('posts/data',[PostController::class,'data'])->name('posts.data');
 Route::resource('posts',PostController::class);
 Route::post('posts/change-status',[PostController::class,'changeStatus'])->name('posts.change-status');
 
-
 // filemanager
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
-
 
 // socmed
 Route::get('socmeds/data',[SocmedController::class,'data'])->name('socmeds.data');

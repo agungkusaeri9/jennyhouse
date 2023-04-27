@@ -5,10 +5,10 @@
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>Login/Register</h1>
+                    <h1>Login</h1>
                     <nav class="d-flex align-items-center">
                         <a href="{{ route('home') }}">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="{{ route('login') }}">Login/Register</a>
+                        <a href="{{ route('login') }}">Login</a>
                     </nav>
                 </div>
             </div>
@@ -61,9 +61,9 @@
                             </div>
                           </div>
                             <div class="col-md-12  form-group">
-                                <a class="btn btn-primary btn-block" href="{{ route('google.index') }}">
-                                    <span class="google-icon text-white"><i class="fa fa-google"></i></span>
-                                    <span class="google-text text-white">Sign in with Google</span>
+                                <a class="btn btn-primary btn-block" href="{{ route('register') }}">
+                                    <span class="google-icon text-white">
+                                    <span class="google-text text-white">REGISTER</span>
                                 </a>
                             </div>
 

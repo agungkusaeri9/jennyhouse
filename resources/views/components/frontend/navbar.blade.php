@@ -56,15 +56,15 @@
                         <li class="nav-item @if (Route::currentRouteName() === 'cart.index') active @endif"><a
                                 href="{{ route('cart.index') }}" class="cart"><span class="ti-bag"></span></a></li>
                         @auth
+
                             <li class="nav-item"><a href="javascript:void(0)"
                                     onclick="document.getElementById('formLogout').submit()" class="cart text-dark"><span
                                         class="text-dark"></span>Logout</a></li>
                             <form action="{{ route('logout') }}" id="formLogout" method="post">
                                 @csrf</form>
-
                         @else
-                        <li class="nav-item @if (Route::currentRouteName() === 'cart.index') active @endif"><a
-                            href="{{ route('login') }}" class="cart"><span class="ti-user"></span></a></li>
+                            <li class="nav-item @if (Route::currentRouteName() === 'cart.index') active @endif"><a
+                                    href="{{ route('login') }}" class="cart"><span class="ti-user"></span></a></li>
                         @endauth
 
                     </ul>

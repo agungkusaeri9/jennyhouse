@@ -15,6 +15,6 @@ class PostCategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        PostCategory::factory(20)->create();
+        PostCategory::factory(5)->create();
     }
 }

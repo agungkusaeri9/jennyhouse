@@ -79,18 +79,6 @@
                         <span>File Manager</span></a>
                 </li>
             @endcan
-            @can('Role View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.roles.index') }}"><i class="fas fa-folder"></i>
-                        <span>Role</span></a>
-                </li>
-            @endcan
-            @can('Permission View')
-                <li>
-                    <a class="nav-link" href="{{ route('admin.permissions.index') }}"><i class="fas fa-folder"></i>
-                        <span>Hak Akses</span></a>
-                </li>
-            @endcan
             @can('Setting View')
                 <li>
                     <a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
